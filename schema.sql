@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXISTS User (
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Username TEXT NOT NULL UNIQUE,
+    Password TEXT NOT NULL,
+    Email TEXT,  -- Removed NOT NULL constraint
+    Preferences TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS Book (
+    BookID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    Author TEXT NOT NULL,
+    Genre TEXT NOT NULL,
+    PublicationYear INTEGER,
+    Synopsis TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Review (
+    ReviewID INTEGER PRIMARY KEY AUTOINCREMENT,
+    BookID INTEGER NOT NULL,
+    UserID INTEGER NOT NULL,
+    Rating INTEGER CHECK(Rating >= 1 AND Rating <= 5),
+    ReviewText TEXT,
+    FOREIGN KEY (BookID) REFERENCES Book(BookID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE IF NOT EXISTS ReadingList (
+    ListID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER NOT NULL,
+    ListName TEXT NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE IF NOT EXISTS ReadingListBooks (
+    ListID INTEGER NOT NULL,
+    BookID INTEGER NOT NULL,
+    PRIMARY KEY (ListID, BookID),
+    FOREIGN KEY (ListID) REFERENCES ReadingList(ListID),
+    FOREIGN KEY (BookID) REFERENCES Book(BookID)
+);
+
+CREATE TABLE IF NOT EXISTS Recommendation (
+    RecommendationID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER NOT NULL,
+    BookID INTEGER NOT NULL,
+    RecommendationText TEXT,
+    DateRecommended DATE,
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (BookID) REFERENCES Book(BookID)
+);
+

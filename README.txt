@@ -36,5 +36,3 @@ IMPORTANT NOTES:
 * The database file book_recommendation_system.db contains the prepopulated data used by the application.
 * If you need to reset the database or initialize a new one, the schema and data SQL scripts
 (schema.sql and data.sql) are included in the project.
-DEMONSTRATION VIDEO LINK: 
-https://youtu.be/4Yeh2uZ6uHA
